@@ -4,7 +4,7 @@ import Fuse from "fuse.js";
 
 import { sleep } from "../../util/common.js";
 import { updateUserLastTimestamp } from "../../middlewares/updateUserLastTimestamps.js";
-import {getMainKeyboard, getDocumentKeyboard, getBackKeyboard} from '../../util/keyboard.js'
+import {getMainKeyboard, getBackKeyboard} from '../../util/keyboard.js'
 
 const Base = Scenes.BaseScene;
 const document = new Base("document");

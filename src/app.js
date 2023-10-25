@@ -3,12 +3,12 @@ import { logger, prisma } from "./index.js";
 import * as dotenv from 'dotenv'
 import { Telegraf, Scenes, session } from 'telegraf';
 import asyncWrapper from "./util/error-handler.js";
-import {getDocumentKeyboard, getMainKeyboard} from "./util/keyboard.js";
+import { getMainKeyboard } from "./util/keyboard.js";
 import startScene from './controllers/start/index.js';
-import documentScene from './controllers/document/index.js';
+import documentScene from './controllers/ticket/index.js';
 
 
-const bot = new Telegraf('6149898652:AAHxnzPD9Vp-fpIktw-HHdCMfjxOPFLaRlA');
+const bot = new Telegraf('');
 
 const stage = new Scenes.Stage([
     startScene,
@@ -18,7 +18,6 @@ bot.use(session());
 bot.use(stage.middleware());
 
 const { mainKeyboard, mainKeyboardDocument  } = getMainKeyboard();
-const { documentKeyboardSearch, documentKeyboardCatalog, documentKeyboard } = getDocumentKeyboard();
 
 bot.command('repair', async (ctx) => {
     logger.info(`User ${ctx.message.from.id} used /repair command`);

@@ -14,13 +14,50 @@ model roles {
 }
 
 model users {
-  uid                      Int      @id(map: "users_pk")
-  username                 String?  @db.VarChar
-  first_name               String?  @db.VarChar
-  last_name                String?  @db.VarChar
-  roles                    Int?
-  email                    String?  @db.VarChar
-  isverified               Boolean?
-  last_activity            DateTime @db.Timestamptz(6)
-  roles_users_rolesToroles roles?   @relation("users_rolesToroles", fields: [roles], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_roles_id_fk")
+  uid                                              Int            @id(map: "users_pk")
+  username                                         String?        @db.VarChar
+  first_name                                       String?        @db.VarChar
+  last_name                                        String?        @db.VarChar
+  roles                                            Int?
+  organizations                                    Int?
+  last_activity                                    DateTime       @db.Timestamptz(6)
+  is_banned                                        Boolean?
+  files                                            files[]
+  ticket                                           ticket[]
+  organizations_users_organizationsToorganizations organizations? @relation("users_organizationsToorganizations", fields: [organizations], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_organizations_id_fk")
+  roles_users_rolesToroles                         roles?         @relation("users_rolesToroles", fields: [roles], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_roles_id_fk")
+}
+
+model files {
+  id              Int      @id(map: "files_pk") @default(autoincrement())
+  file_name       String   @db.VarChar
+  content         String   @db.VarChar
+  created_user_id Int
+  created_at      DateTime @db.Timestamptz(6)
+  users           users    @relation(fields: [created_user_id], references: [uid], onDelete: NoAction, onUpdate: NoAction, map: "document_created_user_id_fk")
+}
+
+model organizations {
+  id                                         Int      @id(map: "organizations_pk") @default(autoincrement())
+  name                                       String   @db.VarChar
+  ticket_ticket_organizationsToorganizations ticket[] @relation("ticket_organizationsToorganizations")
+  users_users_organizationsToorganizations   users[]  @relation("users_organizationsToorganizations")
+}
+
+model status {
+  id                           Int      @id(map: "status_pk") @default(autoincrement())
+  name                         String   @db.VarChar
+  ticket_ticket_statusTostatus ticket[] @relation("ticket_statusTostatus")
+}
+
+model ticket {
+  id                                                Int            @id(map: "ticket_pk")
+  subject                                           String?        @db.VarChar
+  body_message                                      String         @db.VarChar
+  status                                            Int?
+  organizations                                     Int?
+  user_id                                           Int
+  organizations_ticket_organizationsToorganizations organizations? @relation("ticket_organizationsToorganizations", fields: [organizations], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticket_organizations_id_fk")
+  users                                             users          @relation(fields: [user_id], references: [uid], onDelete: NoAction, onUpdate: NoAction, map: "ticket_user_id_fk")
+  status_ticket_statusTostatus                      status?        @relation("ticket_statusTostatus", fields: [status], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_status_id_fk")
 }

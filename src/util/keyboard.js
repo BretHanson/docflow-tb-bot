@@ -23,15 +23,13 @@ export const getLestGoKeyboardInline = () => {
     };
 }
 export const getMainKeyboard = () => {
-    const mainKeyboardDocument= '🗂 Документы';
-    const mainKeyboardService = '📡 Сервисы';
+    const mainKeyboardDocument= '✍️ Написать обращение';
+    const mainKeyboardService = '📡 Мои обращения';
     const mainKeyboardProfile = '👤 Профиль';
     const mainKeyboardAbout = '❓ Обо мне';
-    const mainKeyboardContact = '✍️ Обратная связь';
     let mainKeyboard = Markup.keyboard([
         [mainKeyboardDocument, mainKeyboardService],
-        [mainKeyboardProfile],
-        [mainKeyboardAbout, mainKeyboardContact]
+        [mainKeyboardProfile, mainKeyboardAbout]
     ]);
     mainKeyboard = mainKeyboard.resize().oneTime();
 
@@ -40,12 +38,11 @@ export const getMainKeyboard = () => {
         mainKeyboardDocument,
         mainKeyboardService,
         mainKeyboardProfile,
-        mainKeyboardAbout,
-        mainKeyboardContact
+        mainKeyboardAbout
     }
 };
 
-export const getDocumentKeyboard = () => {
+/*export const getTicketKeyboard = () => {
     const documentKeyboardSearch = '🔍 Поиск';
     const documentKeyboardCatalog = '🗂 Каталог';
     const documentKeyboardBack = '◀️ Назад';
@@ -60,5 +57,5 @@ export const getDocumentKeyboard = () => {
         documentKeyboardCatalog,
         documentKeyboardBack
     };
-};
-export default { getBackKeyboard, getMainKeyboard, getLestGoKeyboardInline, getDocumentKeyboard };
+};*/
+export default { getBackKeyboard, getMainKeyboard, getLestGoKeyboardInline };
